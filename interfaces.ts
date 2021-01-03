@@ -1,7 +1,4 @@
-interface Vehicle {
-    name: string,
-    year: number,
-    broken: boolean,
+interface Reportable {
     summary(): string
 }
 
@@ -12,6 +9,16 @@ const oldCivic = {
     broken: true,
     summary(): string {
         return `In summary, name is ${this.name}.`
+    }
+}
+
+// of type Reportable since it contains summary.
+const drink = {
+    color: 'brown',
+    carbonated: true,
+    sugar: 40,
+    summary(): string {
+        return `My drink has ${this.sugar} grams of sugar.`
     }
 }
 
@@ -26,15 +33,14 @@ const printVehicle = ({name, year, broken}: {name: string, year: number, broken:
 }
 
 // with interface 
-const printVehicleInterface = (vehicle: Vehicle): void => {
+const printSummaryInterface = (item: Reportable): void => {
     console.log(`
         With Interface ...
-        Name: ${vehicle.name},
-        Year: ${vehicle.year}.
-        Broken: ${vehicle.broken}
-        ${vehicle.summary()}
+        ${item.summary()}
     `);
 }
 
 printVehicle(oldCivic)
-printVehicleInterface(oldCivic)
+printSummaryInterface(oldCivic)
+
+printSummaryInterface(drink);
