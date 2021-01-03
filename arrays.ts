@@ -26,6 +26,9 @@ var carMakersCopy = carMakers.map((car:string):string => {
 
 console.log(carMakersCopy);
 
+// 4) Flexible - arrays can contain multiple different types 
+const importantDates = [new Date(), '2030-10-10'];
 
-
+// without the annotation, will get the any type which we want to avoid 
+const annotatedImportantDates: (Date | string)[] = []
 
