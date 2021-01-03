@@ -1,14 +1,18 @@
 interface Vehicle {
     name: string,
     year: number,
-    broken: boolean
+    broken: boolean,
+    summary(): string
 }
 
 
 const oldCivic = {
     name: 'civic',
     year: 2000,
-    broken: true
+    broken: true,
+    summary(): string {
+        return `In summary, name is ${this.name}.`
+    }
 }
 
 // destructured 
@@ -28,6 +32,7 @@ const printVehicleInterface = (vehicle: Vehicle): void => {
         Name: ${vehicle.name},
         Year: ${vehicle.year}.
         Broken: ${vehicle.broken}
+        ${vehicle.summary()}
     `);
 }
 
