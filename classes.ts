@@ -25,6 +25,11 @@ console.log(car3.color);
 
 // can overwrite methods 
 class Car extends Vehicle {
+    // not adding public color because don't want to reassign or create a new field of color that already belongs to Vehicle
+    constructor(public wheels: number, color: string){
+        super(color)
+    }
+
     drive(): void {
         console.log('zoom zoom.');
     }
@@ -35,7 +40,7 @@ class Car extends Vehicle {
     }
 }
 
-// const car2 = new Car();
+const car2 = new Car(23, 'blue');
 // car2.drive();
-// car2.startDrivingProcess()
+car2.startDrivingProcess()
 // car2.honk();
