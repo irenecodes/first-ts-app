@@ -1,12 +1,14 @@
 import faker from 'faker';
+import {Mappable} from './CustomMap';
 
-export class User {
+export class User implements Mappable {
     name: string;
     // type an obj 
     location: {
         lat: number;
         lng: number;
-    }
+    };
+    color: 'blue'
 
     // initialize the info 
     constructor() {

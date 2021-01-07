@@ -100468,6 +100468,7 @@ var Company =
 function () {
   // initialize the info 
   function Company() {
+    this.color = 'red';
     this.companyName = faker_1.default.company.companyName();
     this.catchPhrase = faker_1.default.company.catchPhrase(); // rmb to initialize as object 
 
