@@ -100439,6 +100439,10 @@ function () {
     };
   }
 
+  User.prototype.markerContent = function () {
+    return "User Name: " + this.name;
+  };
+
   return User;
 }();
 
@@ -100471,7 +100475,12 @@ function () {
       lat: parseFloat(faker_1.default.address.latitude()),
       lng: parseFloat(faker_1.default.address.longitude())
     };
-  }
+  } // fulfilling the interface. strings can be html
+
+
+  Company.prototype.markerContent = function () {
+    return "\n        <div>\n        <h1>User Name: " + this.companyName + "</h1>\n        <h3>Catch phrase: " + this.catchPhrase + "</h3>\n        </div>\n        ";
+  };
 
   return Company;
 }();
@@ -100500,12 +100509,20 @@ function () {
   }
 
   CustomMap.prototype.addMarker = function (mappable) {
-    new google.maps.Marker({
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    });
+    marker.addListener('click', function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 
@@ -100533,7 +100550,13 @@ var company = new Company_1.Company(); // console.log(company);
 var customMap = new CustomMap_1.CustomMap('map'); // user and company correctly fulfills Mappable interface - this is an implicit check bc TS is checking user and company has the correct properties with the correct arguments to be an argument to addMarker()
 
 customMap.addMarker(user);
-customMap.addMarker(company);
+customMap.addMarker(company); // Describing what is happening: 
+// 1. import Custom Map which has the method addMarker which takes the interface of Mappable 
+// 2. addMarker takes argument of interface Mappable - the arguments that get passed into addMarker MUST fulfill the interface's requirements 
+// 3. Assign addMarker's position match the (PARAMETER i.e. user)'s location via mappable(the parameter).location.lat. 
+// 4. Created a listener for marker upon click - google maps docs say can use google.maps.InfoWindow to create the pop-up infoWindow and add content: , then call the .open() method on the infoWindow variable created with params THIS google map and adding the marker that has positions assigned to it from step 3. 
+// 5. add markerContent as a method to Mappable interface with an expected return - go to these components/CLASSES in this specific case and make sure they have the markerContent in order to fulfil interface's rules 
+// 6. add a return string on markerContent for each component/CLASS that is being passed into customMap.addMarker(CLASS/PARAM HERE)
 },{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
