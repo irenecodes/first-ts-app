@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sorter = void 0;
-// allow access to other files w export
 var Sorter = /** @class */ (function () {
+    // if want to use Sorter, need to fulfill interface 
     function Sorter(collection) {
         this.collection = collection;
     }
