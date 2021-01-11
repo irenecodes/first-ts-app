@@ -1,5 +1,9 @@
-export class NumbersCollection {
-    constructor(public data: number[]) {    }
+import {Sorter} from './Sorter'
+
+export class NumbersCollection extends Sorter {
+    constructor(public data: number[]) {  
+        super();
+      }
 
     // putting get means we do not need to call length as if it were a function --> see line below export. we call it as if it were an array or string
     get length(): number {
