@@ -1,14 +1,14 @@
 import fs from 'fs';
+import {dateStringToDate} from './utils'
+import {MatchResult} from './MatchResult'
+
+// creating a tuple structure
+type MatchData = [Date, string, string, number, number, MatchResult, string];
 
 
-
-
-export abstract class CsvFileReader<T> {
-    data: T[] = [];
+export class CsvFileReader {
+    data: MatchData[] = [];
     constructor(public filename: string) {}
-
-    // mark this method as abstract which means it will be implemented by child class
-    abstract mapRow(row:string[]): T;
 
     read() {
         this.data = fs.readFileSync(this.filename, {
@@ -20,6 +20,16 @@ export abstract class CsvFileReader<T> {
             return row.split(',');
         }) 
         // conversion process for each of the values 
-        .map(this.mapRow)
+        .map((row: string[]): MatchData => {
+            return [
+                dateStringToDate(row[0]),
+                row[1],
+                row[2],
+                parseInt(row[3]),
+                parseInt(row[4]),
+                row[5] as MatchResult, 
+                row[6]
+            ]
+        })
     }
 }
